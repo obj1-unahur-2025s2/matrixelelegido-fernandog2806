@@ -1,9 +1,89 @@
+// matrixTest.wtest
+// matrixTest.wtest
+// matrixTest.wtest
+// matrixTest.wtest
+// matrixTest.wtest
+import matrix.*
+import nave.*
 
 
-describe "group of tests " {
+describe "neo" {
 
-  test "test 01" {
-    assert.equals(100, 50+50)
+  test "neo es el elegido" {
+    assert.that(neo.esElElegido())
+  }
+  test "energia de neo despues de saltar" {
+    neo.saltar()
+    assert.equals(50, neo.energia())
+  }
+  test "vitalidad de neo" {
+    assert.equals(10, neo.vitalidad())
+  }
+}
+describe "morfeo" {
+
+  test "morfeo no es el elegido" {
+    assert.notThat(morfeo.esElElegido())
+  }
+
+  test "morfeo está cansado despues de saltar" {
+    morfeo.saltar()
+    assert.that(morfeo.estaCansado())
+  }
+
+  test "morfeo no esta cansado despues de saltar dos veces" {
+    morfeo.saltar()
+    morfeo.saltar()
+    assert.notThat(morfeo.estaCansado())
+  }
+  test "vitalidad de morfeo es 8" {
+    assert.equals(8, morfeo.vitalidad())
+  }
+
+}
+
+describe "trinity" {
+  test "vitalidad es 0" {
+    assert.equals(0, trinity.vitalidad())
+  }
+  test "no es elegido" {
+    assert.notThat(trinity.esElElegido())
+  }
+}
+
+describe "nave" {
+  test "cantidad de pasajeros" {
+    assert.equals(3, nave.cantidadDePasajeros())
+  }
+  test "pasajero de mayor vitalidad" {
+    assert.equals(neo, nave.pasajeroConMayorVitalidad())
+  }
+  test "esta el elegido" {
+    assert.that(nave.estaElElegido())
+  }
+  test "despues de chochar no hay mas pasajeros" {
+    nave.chocar()
+    assert.equals(0, nave.cantidadDePasajeros())
+  }
+  test "acelerar nave y comprobar que solo neo quede en la nave" {
+    nave.acelerarNave()
+    assert.that(nave.pasajerosEnLaNave().contains(neo))
+    assert.notThat(nave.pasajerosEnLaNave().contains(morfeo))
+    assert.notThat(nave.pasajerosEnLaNave().contains(trinity))
+  }
+
+  test "Neo comparado con Morfeo y Trinity" {
+    assert.notThat(neo.vitalidad() > morfeo.vitalidad() * 2)
+    assert.that(neo.vitalidad() > trinity.vitalidad() * 2) 
+  }
+
+  test "Morfeo comparado con Neo y Trinity" {
+    assert.notThat(morfeo.vitalidad() > neo.vitalidad() * 2) 
+    assert.that(morfeo.vitalidad() > trinity.vitalidad() * 2)
+  }
+  test "Trinity comparado con Neo y Morfeo" {
+    assert.notThat(trinity.vitalidad() > neo.vitalidad() * 2) 
+    assert.notThat(trinity.vitalidad() > morfeo.vitalidad() * 2)
   }
 
 }
